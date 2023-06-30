@@ -1,0 +1,86 @@
+<div class="container mt-2">
+  <ng-container *ngIf="customers | async; else failureOrLoading">
+    <div class="card">
+      <div class="card-header">Customers List</div>
+      <div class="card-body">
+        <ng-container *ngIf="searchFormGroup">
+          <form
+            [formGroup]="searchFormGroup"
+            (ngSubmit)="handleSearchCustomers()"
+          >
+            <div class="input-group">
+              <label for="keyword" class="input-group-text">Keyword :</label>
+              <input
+                class="form-control"
+                formControlName="keyword"
+                type="text"
+                id="keyword"
+                placeholder="keyword"
+              />
+              <select class="form-select" formControlName="option">
+                <option value="" selected>Any</option>
+                <option value="NAME">By name</option>
+                <option value="EMAIL">By email</option>
+              </select>
+              <button class="btn btn-info" type="submit">Search</button>
+            </div>
+          </form>
+        </ng-container>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of customers | async">
+              <td>{{ c.id }}</td>
+              <td>{{ c.name }}</td>
+              <td>{{ c.email }}</td>
+              <td>
+                <a
+                  [routerLink]="['/customers/edit', c.id]"
+                  class="btn btn-warning btn-sm mx-1"
+                  data-bs-toggle="tooltip"
+                  data-placement="top"
+                  data-bs-title="Edit"
+                  ><i class="bi bi-pen"></i
+                ></a>
+                <a
+                  class="btn btn-danger btn-sm mx-1"
+                  (click)="handleDeleteCustomer(c.id)"
+                  data-bs-toggle="tooltip"
+                  data-placement="top"
+                  data-bs-title="Delete"
+                  ><i class="bi bi-trash"></i
+                ></a>
+                <a
+                  class="btn btn-info btn-sm mx-1"
+                  [routerLink]="['/customers/details', c.id]"
+                  data-bs-toggle="tooltip"
+                  data-placement="top"
+                  data-bs-title="Show Details"
+                  ><i class="bi bi-eye"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #failureOrLoading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{ errorMessage }}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div>Loading...</div>
+    </ng-template>
+  </ng-template>
+</div>

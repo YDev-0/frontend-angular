@@ -1,0 +1,88 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">Accounts</div>
+    <div class="card-body">
+      <ng-container *ngIf="errorAccount; else account_details">
+        <div class="text-danger">{{ errorAccount }}</div>
+      </ng-container>
+      <ng-template #account_details>
+        <ng-container *ngIf="accountDetails | async as account; else loading">
+          <div class="card mb-2">
+            <div class="card-header">account</div>
+            <div class="card-body">
+              <p><strong>Type:</strong> {{ account.type }}</p>
+              <p>
+                <strong>Balance:</strong>
+                {{ account.balance | number : "1.2-2" }} MAD
+              </p>
+              <p><strong>Status:</strong> {{ account.status }}</p>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let operation of account.accountOperations">
+                <td>{{ operation.id }}</td>
+                <td>{{ operation.type }}</td>
+                <td>
+                  {{ operation.operationDate | date : "dd-MM-yyyy:HH-mm" }}
+                </td>
+                <td>{{ operation.description }}</td>
+                <td class="text-end">
+                  {{ operation.amount | number : "1.2-2" }} MAD
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <ul class="nav nav-pills">
+              <li>
+                <button
+                  [disabled]="1 == currentPage"
+                  (click)="gotoPage(currentPage - 1)"
+                  class="btn btn-info ms-1 mt-1"
+                >
+                  <<
+                </button>
+              </li>
+              <li
+                *ngFor="
+                  let item of [].constructor(account.totalPages);
+                  let page = index
+                "
+              >
+                <button
+                  [disabled]="page + 1 == currentPage"
+                  (click)="gotoPage(page + 1)"
+                  class="btn btn-info ms-1 mt-1"
+                >
+                  {{ page + 1 }}
+                </button>
+              </li>
+              <li>
+                <button
+                  [disabled]="account.totalPages == currentPage"
+                  (click)="gotoPage(currentPage + 1)"
+                  class="btn btn-info ms-1 mt-1"
+                >
+                  >>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <ng-container *ngIf="accountLoading"> Loading ... </ng-container>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>

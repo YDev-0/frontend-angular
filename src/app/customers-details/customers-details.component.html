@@ -1,0 +1,102 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">Accounts</div>
+    <div class="card-body">
+      <ng-container *ngIf="errorCustomer; else customer_details">
+        <div class="text-danger">{{ errorCustomer }}</div>
+      </ng-container>
+      <ng-template #customer_details>
+        <ng-container *ngIf="customerDetails | async as customer; else loading">
+          <div class="card mb-2">
+            <div class="card-header">Customer</div>
+            <div class="card-body">
+              <p><strong>ID:</strong> {{ customer.id }}</p>
+              <p>
+                <strong>Name:</strong>
+                {{ customer.name }}
+              </p>
+              <p><strong>Email:</strong> {{ customer.email }}</p>
+            </div>
+          </div>
+          <table class="table mb-3">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Date Creation</th>
+                <th>Balance</th>
+                <th>Overdraft</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let account of customer.currentAccounts">
+                <td>{{ account.id }}</td>
+                <td>{{ account.type }}</td>
+                <td>
+                  {{ account.createdAt | date : "dd-MM-yyyy:HH-mm" }}
+                </td>
+                <td class="text-end">
+                  {{ account.balance | number : "1.2-2" }} MAD
+                </td>
+                <td class="text-end">
+                  {{ account.overDraft | number : "1.2-2" }} MAD
+                </td>
+                <td>
+                  <a
+                    class="btn btn-info btn-sm mx-1"
+                    [routerLink]="['/accounts/details', account.id]"
+                    data-bs-toggle="tooltip"
+                    data-placement="top"
+                    data-bs-title="Show Details"
+                    ><i class="bi bi-eye"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table mb-3">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Date Creation</th>
+                <th>Balance</th>
+                <th>Interest Rate</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let account of customer.savingAccounts">
+                <td>{{ account.id }}</td>
+                <td>{{ account.type }}</td>
+                <td>
+                  {{ account.createdAt | date : "dd-MM-yyyy:HH-mm" }}
+                </td>
+                <td class="text-end">
+                  {{ account.balance | number : "1.2-2" }} MAD
+                </td>
+                <td class="text-end">
+                  {{ account.interestRate | number : "1.2-2" }} MAD
+                </td>
+                <td>
+                  <a
+                    class="btn btn-info btn-sm mx-1"
+                    [routerLink]="['/accounts/details', account.id]"
+                    data-bs-toggle="tooltip"
+                    data-placement="top"
+                    data-bs-title="Show Details"
+                    ><i class="bi bi-eye"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #loading>
+          <ng-container *ngIf="customerLoading"> Loading ... </ng-container>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
