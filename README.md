@@ -1,27 +1,45 @@
-# DigitalBankingWeb
+# Frontend eBanking Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.1.
+Ce dépôt contient le code source du frontend de l'application eBanking développée avec Angular. Il s'agit d'une interface permettant de consulter les utilisateurs, d'accéder à leur compte bancaire, de consulter leur solde, d'effectuer des transactions et de gérer leur historique.
+Pour 
 
-## Development server
+## Fonctionnalités
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Gestion des utilisateurs CRUD
+- Fonctionnalité de recherche et de filtrage des utilisateurs
+- Affichage des comptes de chaque utilisateur
+- Affichage du des informations detaillé de chaque compte
+- Historique des opérations de chaque compte
 
-## Code scaffolding
+## Technologies utilisées
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular Framework
+- Bootstrap pour le design et la mise en page réactive
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clonez ce dépôt sur votre machine locale:
 
-## Running unit tests
+git clone https://github.com/YDev-0/frontend-ebanking-angular.git
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+2. Accédez au répertoire du projet:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+cd frontend-ebanking-angular
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Installez les dépendances:
+
+npm install
+
+
+4. Lancez l'application en mode développement:
+
+ng serve
+
+
+L'application sera accessible à l'adresse `http://localhost:4200`.
+
+## Configuration
+
+Avant de lancer l'application, veuillez vous assurer de configurer correctement les variables d'environnement nécessaires, telles que l'URL de l'API backend, les clés d'API, etc. Vous pouvez trouver les fichiers de configuration appropriés dans le répertoire `src/environments`.
